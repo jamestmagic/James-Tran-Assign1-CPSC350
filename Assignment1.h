@@ -11,3 +11,4 @@ class Assignment1{
     double findVariance(double meanDiff, double lines);
     double findSD(double variance);
 };
+  
