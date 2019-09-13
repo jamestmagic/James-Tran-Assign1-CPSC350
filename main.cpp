@@ -30,6 +30,7 @@ int main(int argc, char** argv){
   }
 
   double variance = a.findVariance(meanDiff, numLines);
+  double standardDeviation = a.findSD(variance);
   //cout << "Mean = " << mean << endl;
   return 0;
 
