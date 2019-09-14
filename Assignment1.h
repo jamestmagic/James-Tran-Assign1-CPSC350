@@ -10,5 +10,5 @@ class Assignment1{
     double findMean(double total, double lines);
     double findVariance(double meanDiff, double lines);
     double findSD(double variance);
+    double findRelativeProb(double numInstances, double total);
 };
-  

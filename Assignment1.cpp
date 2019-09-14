@@ -30,4 +30,6 @@ double Assignment1::findSD(double variance){
   return sqrt(variance);
 }
 
-double Assignment1::Find
+double Assignment1::findRelativeProb(double numInstances, double total){
+  return numInstances/total; //divides number of instances of a given nucleotide by the total amount of nucleotides
+}
