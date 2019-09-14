@@ -11,4 +11,5 @@ class Assignment1{
     double findVariance(double meanDiff, double lines);
     double findSD(double variance);
     double findRelativeProb(double numInstances, double total);
+    void allOperationsAndGenerations(string fileName);
 };
