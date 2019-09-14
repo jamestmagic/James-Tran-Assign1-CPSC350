@@ -20,20 +20,22 @@ int main(int argc, char** argv){
 
 
   while(getline(readFile, dnaString)){
-    ++numLines;
+    ++numLines; //counts number of lines
     numChars = numChars + dnaString.length();
   }
 
   double mean = a.findMean(numChars, numLines);
+  cout << "mean = " << mean << endl;
 
-  while(getline(readFile, dnaString)){
+  ifstream readFile1(dnaFile);
+  while(getline(readFile1, dnaString)){
     meanDiff += pow((dnaString.length() - mean),2); //takes the difference of the mean and squares it
   }
 
   double variance = a.findVariance(meanDiff, numLines);
   double standardDeviation = a.findSD(variance);
-
-
+  cout<< "variance = " << variance << endl;
+  cout<< "sd = " << standardDeviation << endl;
   //nucleotides for relative probability
   char nucleotide;
   int nA = 0; //how many instances of this particular nucleotide
@@ -41,16 +43,28 @@ int main(int argc, char** argv){
   int nC = 0;
   int nG = 0;
   int total = 0; //total amount of nucleotides in the file
-
-  while(readFile>>nucleotide){
-    if(readFile.eof()){ //if it reaches the end of the file, it stops reading
-      break;
-    }
-    else if(tolower(nucleotide) == 'a'){
-      ++nA;
-      ++total;
+  ifstream readFile2(dnaFile);
+  while(getline(readFile2, dnaString)){
+    for(int i = 0; i < dnaString.length();++i){ //iterate through dnaString
+      if(tolower(dnaString[i]) == 'a'){//checks if the character matches the nucleotide
+        ++nA; //adds to number of given nucleotide
+        ++total; //adds to total amount of nucleotides in file
+      }
+      else if(tolower(dnaString[i]) == 'c'){//checks if the character matches the nucleotide
+        ++nC; //adds to number of given nucleotide
+        ++total; //adds to total amount of nucleotides in file
+      }
+      else if(tolower(dnaString[i]) == 't'){//checks if the character matches the nucleotide
+        ++nT; //adds to number of given nucleotide
+        ++total; //adds to total amount of nucleotides in file
+      }
+      else if(tolower(dnaString[i]) == 'g'){//checks if the character matches the nucleotide
+        ++nG; //adds to number of given nucleotide
+        ++total; //adds to total amount of nucleotides in file
+      }
     }
   }
+  
   cout << "a: " << nA << endl;
   //cout << "Mean = " << mean << endl;
   return 0;

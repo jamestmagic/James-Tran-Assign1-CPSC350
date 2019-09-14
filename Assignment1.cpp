@@ -29,3 +29,5 @@ double Assignment1::findVariance(double meanDiff, double lines){ //meanDiff is t
 double Assignment1::findSD(double variance){
   return sqrt(variance);
 }
+
+double Assignment1::Find
