@@ -1,14 +1,18 @@
+#define _USE_MATH_DEFINES
 #include "Assignment1.h"
 #include <iostream>
 #include <fstream>
 #include <math.h>
 #include <string>
+#include <cmath>
+#include <time.h>
 
 using namespace std;
 
 int main(int argc, char** argv){
   string dnaFile = argv[1];
   Assignment1 a;
+  srand(time(NULL));
 
   ifstream readFile(dnaFile);
 
@@ -159,6 +163,24 @@ int main(int argc, char** argv){
   double probGC = a.findRelativeProb(gc, bigramTotal);
   double probGT = a.findRelativeProb(gt, bigramTotal);
   double probGG = a.findRelativeProb(gg, bigramTotal);
+  //Ranges for the probability of each nucleotide bigram
+  double aaRange = probAA;
+  double acRange = probAA+probAC;
+  double atRange = probAA+probAC+probAT;
+  double agRange = probAA+probAC+probAT+probAG;
+  double caRange = probAA+probAC+probAT+probAG+probCA;
+  double ccRange = probAA+probAC+probAT+probAG+probCA+probCC;
+  double ctRange = probAA+probAC+probAT+probAG+probCA+probCC+probCT;
+  double cgRange = probAA+probAC+probAT+probAG+probCA+probCC+probCT+probCG;
+  double taRange = probAA+probAC+probAT+probAG+probCA+probCC+probCT+probCG+probTA;
+  double tcRange = probAA+probAC+probAT+probAG+probCA+probCC+probCT+probCG+probTA+probTC;
+  double ttRange = probAA+probAC+probAT+probAG+probCA+probCC+probCT+probCG+probTA+probTC+probTT;
+  double tgRange = probAA+probAC+probAT+probAG+probCA+probCC+probCT+probCG+probTA+probTC+probTT+probTG;
+  double gaRange = probAA+probAC+probAT+probAG+probCA+probCC+probCT+probCG+probTA+probTC+probTT+probTG+probGA;
+  double gcRange = probAA+probAC+probAT+probAG+probCA+probCC+probCT+probCG+probTA+probTC+probTT+probTG+probGA+probGC;
+  double gtRange = probAA+probAC+probAT+probAG+probCA+probCC+probCT+probCG+probTA+probTC+probTT+probTG+probGA+probGC+probGT;
+  double ggRange = probAA+probAC+probAT+probAG+probCA+probCC+probCT+probCG+probTA+probTC+probTT+probTG+probGA+probGC+probGT+probGG;
+
   cout << "Probability of AA: " << probAA << endl;
   cout << "Probability of AC: " << probAC << endl;
   cout << "Probability of AT: " << probAT << endl;
@@ -175,7 +197,6 @@ int main(int argc, char** argv){
   cout << "Probability of GC: " << probGC << endl;
   cout << "Probability of GT: " << probGT << endl;
   cout << "Probability of GG: " << probGG << endl;
-  //cout << "Mean = " << mean << endl;
 
   ofstream writeFile;
   writeFile.open("jamestran.out");
@@ -210,7 +231,95 @@ int main(int argc, char** argv){
   writeFile << "Probability of GT: " << probGT << endl;
   writeFile << "Probability of GG: " << probGG << endl;
 
+  //Probability ranges for the individual nucleotides
+  double aRange = probA;
+  double cRange = probA + probC;
+  double tRange = probA + probC + probT;
+  double gRange = probA + probC + probT + probG;
+  for(int i = 0;i<1000;++i){ //creates 1000 strings
+    double a1 = ((double)rand()/RAND_MAX);//generates random number between 0 and 1
+    double b1 = ((double)rand()/RAND_MAX);//generates random number between 0 and 1
+    //cout << "a1 = " << a1 <<endl;
+    //cout << "b1 = " << b1 <<endl;
+    double c1 = sqrt(-2*log(a1)) * cos(2*M_PI*b1);
+    //cout << "c1 = " << c1 <<endl;
+    int d1 = (standardDeviation*c1) + mean; //how many nucleotides in this string
+    //cout << "length of a string: " << d1 << endl;
+    for(int j = 0;j<d1/2;++j){//creates d1 pairs of nucleotides
+      double a2 = ((double)rand()/RAND_MAX);//generate random number from 0 to 1
+      //if statements check if the random number falls within the range of the nucleotides probability
+      if(a2 >= 0 && a2 < aRange){
+        writeFile << "A";
+        if(a2 >= 0 && a2 < aaRange){
+          writeFile << "A";
+        }else if(a2 >= aaRange && a2 < acRange){
+          writeFile << "C";
+        }
+        else if(a2 >= acRange && a2 < atRange){
+          writeFile << "T";
+        }
+        else if(a2 >= atRange && a2 < agRange){
+          writeFile << "G";
+        }
+      }
+      else if(a2 >= aRange && a2 < cRange){
+        writeFile << "C";
+        if(a2 >= 0 && a2 < caRange){
+          writeFile << "A";
+        }else if(a2 >= caRange && a2 < ccRange){
+          writeFile << "C";
+        }
+        else if(a2 >= ccRange && a2 < ctRange){
+          writeFile << "T";
+        }
+        else if(a2 >= ctRange && a2 < cgRange){
+          writeFile << "G";
+        }
+      }
+      else if(a2 >= cRange && a2 < tRange){
+        writeFile << "T";
+        if(a2 >= 0 && a2 < taRange){
+          writeFile << "A";
+        }else if(a2 >= taRange && a2 < tcRange){
+          writeFile << "C";
+        }
+        else if(a2 >= tcRange && a2 < ttRange){
+          writeFile << "T";
+        }
+        else if(a2 >= ttRange && a2 < tgRange){
+          writeFile << "G";
+        }
+      }
+      else if(a2 >= tRange && a2 < gRange){
+        writeFile << "G";
+        if(a2 >= 0 && a2 < gaRange){
+          writeFile << "A";
+        }else if(a2 >= gaRange && a2 < gcRange){
+          writeFile << "C";
+        }
+        else if(a2 >= gcRange && a2 < gtRange){
+          writeFile << "T";
+        }
+        else if(a2 >= gtRange && a2 < ggRange){
+          writeFile << "G";
+        }
+      }
+    }
+    writeFile << "\n";//starts nw string
+  }
+
+
   writeFile.close();
+  char answer;
+  string newFileName;
+  cout << "Would you like to proccess another list?(y/n)" << endl;
+  cin << answer;
+  if(towlower(answer) == 'y'){
+    cout << "Please enter the name of your new file." << endl;
+    cin << newFileName;
+
+  }
+
   return 0;
 
 
