@@ -63,60 +63,65 @@ int main(int argc, char** argv){
   }
 
   ifstream readFile3(dnaFile);
+
   while(getline(readFile3, dnaString)){
-    for(int j = 1; j<dnaString.length();++j){
+    for(int j = 0; j<dnaString.length()-1;++j){
       ++bigramTotal; //tracks how many bigrams there are in total throughout the file
-      string bigram = tolower(dnaString[j-1]) + "" + tolower(dnaString[j]);
-      cout << tolower(dnaString);
-      cout << bigram << endl;
-      if(bigram.compare("aa") == 0){
-        ++aa;
-        cout << "hello" << endl;
+      if(tolower(dnaString[j]) == 'a'){
+        if(tolower(dnaString[j+1]) == 'a'){
+          ++aa;
+        }
+        else if(tolower(dnaString[j+1]) == 'c'){
+          ++ac;
+        }
+        else if(tolower(dnaString[j+1]) == 't'){
+          ++at;
+        }
+        else if(tolower(dnaString[j+1]) == 'g'){
+          ++ag;
+        }
       }
-      else if(tolower(dnaString[j-1]) + "" +  tolower(dnaString[j]) == "ac"){
-        ++ac;
+      else if(tolower(dnaString[j]) == 'c'){
+        if(tolower(dnaString[j+1]) == 'a'){
+          ++ca;
+        }
+        else if(tolower(dnaString[j+1]) == 'c'){
+          ++cc;
+        }
+        else if(tolower(dnaString[j+1]) == 't'){
+          ++ct;
+        }
+        else if(tolower(dnaString[j+1]) == 'g'){
+          ++cg;
+        }
       }
-      else if(tolower(dnaString[j-1]) + "" +  tolower(dnaString[j]) == "at"){
-        ++at;
+      else if(tolower(dnaString[j]) == 't'){
+        if(tolower(dnaString[j+1]) == 'a'){
+          ++ta;
+        }
+        else if(tolower(dnaString[j+1]) == 'c'){
+          ++tc;
+        }
+        else if(tolower(dnaString[j+1]) == 't'){
+          ++tt;
+        }
+        else if(tolower(dnaString[j+1]) == 'g'){
+          ++tg;
+        }
       }
-      else if(tolower(dnaString[j-1]) + "" +  tolower(dnaString[j]) == "ag"){
-        ++ag;
-      }
-      else if(tolower(dnaString[j-1]) + "" +  tolower(dnaString[j]) == "ca"){
-        ++ca;
-      }
-      else if(tolower(dnaString[j-1]) + "" +  tolower(dnaString[j]) == "cc"){
-        ++cc;
-      }
-      else if(tolower(dnaString[j-1]) + "" +  tolower(dnaString[j]) == "ct"){
-        ++ct;
-      }
-      else if(tolower(dnaString[j-1]) + "" +  tolower(dnaString[j]) == "cg"){
-        ++cg;
-      }
-      else if(tolower(dnaString[j-1]) + "" +  tolower(dnaString[j]) == "ta"){
-        ++ta;
-      }
-      else if(tolower(dnaString[j-1]) + "" +  tolower(dnaString[j]) == "tc"){
-        ++tc;
-      }
-      else if(tolower(dnaString[j-1]) + "" +  tolower(dnaString[j]) == "tt"){
-        ++tt;
-      }
-      else if(tolower(dnaString[j-1]) + "" +  tolower(dnaString[j]) == "tg"){
-        ++tg;
-      }
-      else if(tolower(dnaString[j-1]) + "" +  tolower(dnaString[j]) == "ga"){
-        ++ga;
-      }
-      else if(tolower(dnaString[j-1]) + "" +  tolower(dnaString[j]) == "gc"){
-        ++gc;
-      }
-      else if(tolower(dnaString[j-1]) + "" +  tolower(dnaString[j]) == "gt"){
-        ++gt;
-      }
-      else if(tolower(dnaString[j-1]) + "" +  tolower(dnaString[j]) == "gg"){
-        ++gg;
+      else if(tolower(dnaString[j]) == 'g'){
+        if(tolower(dnaString[j+1]) == 'a'){
+          ++ga;
+        }
+        else if(tolower(dnaString[j+1]) == 'c'){
+          ++gc;
+        }
+        else if(tolower(dnaString[j+1]) == 't'){
+          ++gt;
+        }
+        else if(tolower(dnaString[j+1]) == 'g'){
+          ++gg;
+        }
       }
     }
   }
@@ -171,6 +176,41 @@ int main(int argc, char** argv){
   cout << "Probability of GT: " << probGT << endl;
   cout << "Probability of GG: " << probGG << endl;
   //cout << "Mean = " << mean << endl;
+
+  ofstream writeFile;
+  writeFile.open("jamestran.out");
+  writeFile << "mean = " << mean << endl;
+  writeFile<< "variance = " << variance << endl;
+  writeFile<< "sd = " << standardDeviation << endl;
+  writeFile << "a: " << nA << endl;
+  writeFile << "t: " << nT << endl;
+  writeFile << "c: " << nC << endl;
+  writeFile << "g: " << nG << endl;
+  writeFile << "Total: " << total << endl;
+  writeFile << "Probability of A: " << probA <<endl;
+  writeFile << "Probability of T: " << probT <<endl;
+  writeFile << "Probability of C: " << probC <<endl;
+  writeFile << "Probability of G: " << probG <<endl;
+  writeFile << "\n" << endl;
+  writeFile << "Bigram total: " << bigramTotal <<endl;
+  writeFile << "Probability of AA: " << probAA << endl;
+  writeFile << "Probability of AC: " << probAC << endl;
+  writeFile << "Probability of AT: " << probAT << endl;
+  writeFile << "Probability of AG: " << probAG << endl;
+  writeFile << "Probability of CA: " << probCA << endl;
+  writeFile << "Probability of CC: " << probCC << endl;
+  writeFile << "Probability of CT: " << probCT << endl;
+  writeFile << "Probability of CG: " << probCG << endl;
+  writeFile << "Probability of TA: " << probTA << endl;
+  writeFile << "Probability of TC: " << probTC << endl;
+  writeFile << "Probability of TT: " << probTT << endl;
+  writeFile << "Probability of TG: " << probTG << endl;
+  writeFile << "Probability of GA: " << probGA << endl;
+  writeFile << "Probability of GC: " << probGC << endl;
+  writeFile << "Probability of GT: " << probGT << endl;
+  writeFile << "Probability of GG: " << probGG << endl;
+
+  writeFile.close();
   return 0;
 
 

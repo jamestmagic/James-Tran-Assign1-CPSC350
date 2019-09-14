@@ -1,0 +1,31 @@
+mean = 25.2
+variance = 46.16
+sd = 6.79412
+a: 28
+t: 30
+c: 32
+g: 32
+Total: 126
+Probability of A: 0.222222
+Probability of T: 0.238095
+Probability of C: 0.253968
+Probability of G: 0.253968
+
+
+Bigram total: 121
+Probability of AA: 0.0495868
+Probability of AC: 0.0495868
+Probability of AT: 0.0909091
+Probability of AG: 0.0330579
+Probability of CA: 0.00826446
+Probability of CC: 0.0495868
+Probability of CT: 0.0330579
+Probability of CG: 0.157025
+Probability of TA: 0.0826446
+Probability of TC: 0.0413223
+Probability of TT: 0.107438
+Probability of TG: 0.00826446
+Probability of GA: 0.0495868
+Probability of GC: 0.123967
+Probability of GT: 0.0165289
+Probability of GG: 0.0661157
